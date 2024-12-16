@@ -1,0 +1,59 @@
+from configs.xbd_base import data, optimizer, learning_rate, train, test
+
+config = dict(
+    model=dict(
+        type='ChangeOS',
+        params=dict(
+            encoder=dict(
+                type='SiameseResNetEncoder',
+                params=dict(
+                    resnet_type='resnet101',
+                    pretrained=True,
+                    output_stride=32,
+                    output_format='2-4d',
+                ),
+            ),
+            decoder=dict(
+                in_channels_list=(256, 512, 1024, 2048),
+                out_channels=256,
+                fusion_type='residual_se'
+            ),
+            head=dict(
+                loc_head=dict(
+                    in_channels=256,
+                    bottlneck_channels=128,
+                    num_blocks=1,
+                    num_classes=1,
+                    upsample_scale=4.,
+                    deep_head=True,
+                ),
+                dam_head=dict(
+                    in_channels=256,
+                    bottlneck_channels=128,
+                    num_blocks=1,
+                    num_classes=5,
+                    upsample_scale=4.,
+                    deep_head=True,
+                ),
+                loss=dict(
+                    loc=dict(
+                        bce=dict(),
+                        tver=dict(alpha=0.9),
+                        log_binary_iou_sigmoid=dict(),
+                        mem=dict(),
+                        prefix='loc_'
+                    ),
+                    dam=dict(
+                        ce=dict(),
+                        prefix='dam_'
+                    )
+                )
+            ),
+        )
+    ),
+    data=data,
+    optimizer=optimizer,
+    learning_rate=learning_rate,
+    train=train,
+    test=test
+)
