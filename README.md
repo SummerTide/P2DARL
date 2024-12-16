@@ -19,7 +19,7 @@ P2DARL/
 
 ## Resources of Weighted and Test Data
 
- https://pan.baidu.com/s/1uCZb7_2JGfIKhxEG3MAWlA?pwd=jgmp
+https://pan.baidu.com/s/1B-cbCcT0moAFGG7c79DOSw?pwd=2fgm
 
 
 
